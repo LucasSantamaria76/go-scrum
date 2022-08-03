@@ -5,7 +5,7 @@ import Skeleton from 'react-loading-skeleton';
 import { useResize } from '../../hooks/useResize';
 import { TaskCard } from './TaskCard';
 import { CardList, ListGroup, TasksContainerPhone } from './tasksComponents';
-import { deleteTask, editTaskStatus, getTasks } from './../../redux/actions/tasksActions';
+import { deleteTask, editTaskStatus, getTasks } from '../../redux/actions/tasksActions';
 
 const ListTasks = ({ search, searchImportance, tasksfromWho }) => {
   const [list, setList] = useState(null);

@@ -2,11 +2,15 @@ import { useState } from 'react';
 import 'react-loading-skeleton/dist/skeleton.css';
 import debounce from 'lodash.debounce';
 
-import { Header, Input, InputSelect, TaskForm } from './../../components';
-import { Filters, TasksContainer, WrapperList } from './tasksComponents';
-import ListTasks from './ListTasks';
-
+import { Input, InputSelect, TaskForm } from './../../components';
 import { FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material';
+import {
+  Filters,
+  TasksContainer,
+  WrapperList,
+} from '../../components/TasksComponents/tasksComponents';
+import ListTasks from './../../components/TasksComponents/ListTasks';
+import Header from '../../components/TasksComponents/Header';
 
 export const Tasks = () => {
   const [tasksfromWho, setTasksfromWho] = useState('ALL');
@@ -30,7 +34,7 @@ export const Tasks = () => {
                 row
                 aria-labelledby='demo-row-radio-buttons-group-label'
                 value={tasksfromWho}
-                onChange={(event) => setTasksfromWho(event.currentTarget.value)}>
+                onChange={(e) => setTasksfromWho(e.currentTarget.value)}>
                 <FormControlLabel value='ALL' control={<Radio color='error' />} label='Todas' />
                 <FormControlLabel value='ME' control={<Radio color='error' />} label='Mis tareas' />
               </RadioGroup>
@@ -43,6 +47,7 @@ export const Tasks = () => {
             />
             <InputSelect
               name='importance'
+              value={searchImportance}
               placeholderText='Seleccionar una prioridad'
               onChange={(e) => setSearchImportance(e?.target?.value)}
               optionObj={{ ALL: 'Todas', LOW: 'baja', MEDIUM: 'media', HIGH: 'alta' }}

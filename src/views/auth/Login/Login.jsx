@@ -1,18 +1,11 @@
 import { useFormik } from 'formik';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import Swal from 'sweetalert2';
-import styled from '@emotion/styled';
 
 import { Button, Card, Input } from './../../../components';
-
-const { REACT_APP_API_ENDPOINT: API_ENDPOINT } = process.env;
-
-export const LinkStyled = styled(Link)`
-  text-decoration: none;
-  color: #15bd85;
-  cursor: pointer;
-`;
+import { LinkStyled } from '../LinkStyled';
+import { invalidCredentials } from '../invalidCredentials';
+import { fetchLogin } from '../fetchLogin';
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -32,8 +25,15 @@ export const Login = () => {
 
   const onSubmit = () => {
     const { userName, password } = values;
-
-    fetch(`${API_ENDPOINT}auth/login`, {
+    fetchLogin(userName, password)
+      .then((res) => {
+        localStorage.setItem('token', res?.token);
+        localStorage.setItem('userName', userName);
+        localStorage.setItem('teamID', res?.teamID);
+        navigate('/', { replace: true });
+      })
+      .catch(() => invalidCredentials());
+    /*     fetch(`${API_ENDPOINT}auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -46,20 +46,8 @@ export const Login = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data.status_code === 200) {
-          localStorage.setItem('token', data?.result?.token);
-          localStorage.setItem('userName', data?.result?.user.userName);
-          navigate('/', { replace: true });
-        } else {
-          Swal.fire({
-            title: 'Credenciales inválidas',
-            text: 'Por favor introduzca credenciales válidas',
-            confirmButtonText: 'Aceptar',
-            width: '400px',
-            timer: 5000,
-            timerProgressBar: true,
-          });
-        }
-      });
+        } else invalidCredentials();
+      }); */
   };
 
   const formik = useFormik({ initialValues, validationSchema, onSubmit });

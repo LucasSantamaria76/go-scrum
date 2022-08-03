@@ -61,8 +61,32 @@ export const App = () => {
             </RequireAuth>
           }
         />
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
+        <Route
+          path='/login'
+          element={
+            <motion.div
+              className='page'
+              initial='out'
+              animate='in'
+              exit='out'
+              variants={pageTransition}>
+              <Login />
+            </motion.div>
+          }
+        />
+        <Route
+          path='/register'
+          element={
+            <motion.div
+              className='page'
+              initial='out'
+              animate='in'
+              exit='out'
+              variants={pageTransition}>
+              <Register />
+            </motion.div>
+          }
+        />
         <Route
           path='*'
           element={

@@ -1,11 +1,9 @@
-import { Input } from './Input';
-import { Toast } from './Toast';
-import { Button } from './Button';
-import Switch from './Switch';
-import { Card } from './Card';
-import InputSelect from './InputSelect';
-import Header from './Header';
+import { Input } from './CommonComponents/Input';
+import { Toast } from './CommonComponents/Toast';
+import { Button } from './CommonComponents/Button';
+import { Card } from './CommonComponents/Card';
+import InputSelect from './CommonComponents/InputSelect';
 import { TaskForm } from './TaskForm/TaskForm';
-import { Textarea } from './Textarea';
+import { Textarea } from './CommonComponents/Textarea';
 
-export { Button, Card, Header, Input, InputSelect, Switch, TaskForm, Textarea, Toast };
+export { Button, Card, Input, InputSelect, TaskForm, Textarea, Toast };

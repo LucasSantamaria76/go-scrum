@@ -1,24 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { v4 as uuid } from 'uuid';
-import styled from '@emotion/styled';
 
 import { Button, Card, Input, InputSelect, Toast } from '../../../components';
 import { FormControlLabel, Switch } from '@mui/material';
+import { LinkStyled } from '../LinkStyled';
+import { fetchLogin } from '../fetchLogin';
 
 const { REACT_APP_API_ENDPOINT: API_ENDPOINT } = process.env;
 
-export const LinkStyled = styled(Link)`
-  text-decoration: none;
-  color: #15bd85;
-  cursor: pointer;
-`;
-
 export const Register = () => {
   const [data, setData] = useState();
-  /*   const [switchOn, setSwitchOn] = useState(false); */
   const navigate = useNavigate();
 
   const getData = async () => {
@@ -90,7 +84,13 @@ export const Register = () => {
           <p>en el equipo con el ID: ${teamID}</p>
           `,
           });
-          navigate('/login', { replace: true });
+
+          fetchLogin(userName, password).then((res) => {
+            localStorage.setItem('token', res?.token);
+            localStorage.setItem('userName', userName);
+            localStorage.setItem('teamID', res?.teamID);
+            navigate('/', { replace: true });
+          });
         } else
           Toast.fire({
             icon: 'error',
@@ -155,11 +155,6 @@ export const Register = () => {
             }
             label='Pertenecés a un equipo ya creado'
           />
-          {/* <Switch
-            switchOn={switchOn}
-            setSwitchOn={setSwitchOn}
-            label='Pertenecés a un equipo ya creado?'
-          /> */}
           {values.switch && (
             <Input
               label='Por favor, introduce el identificador de equipo'

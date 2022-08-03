@@ -1,12 +1,16 @@
-import styled from '@emotion/styled';
 import { useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 
 import { Button, Input, InputSelect, Textarea, Toast } from '../../components';
+import { types } from '../../redux/types';
+import { FormContainer } from './FormContainer';
 
 const { REACT_APP_API_ENDPOINT: API_ENDPOINT } = process.env;
 
 export const TaskForm = () => {
+  const dispatch = useDispatch();
+
   const initialValues = {
     title: '',
     status: '',
@@ -25,11 +29,12 @@ export const TaskForm = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        //console.log(data);
         Toast.fire({
           icon: 'success',
           title: `Tu tarea se creo correctamente`,
         });
+        dispatch({ type: types.NEW_TASK, payload: data?.result?.task });
         resetForm();
       });
   };
@@ -51,7 +56,9 @@ export const TaskForm = () => {
   return (
     <>
       <FormContainer>
-        <h2>Crear Tarea</h2>
+        <h2>
+          Crear Tarea <span>{`( ID del equipo: ${localStorage.getItem('teamID')})`}</span>
+        </h2>
         <h4>Crea tus tareas</h4>
         <form onSubmit={handleSubmit}>
           <div>
@@ -68,7 +75,7 @@ export const TaskForm = () => {
             <InputSelect
               name='status'
               placeholderText='Seleccionar un estado'
-              value={values.continent}
+              value={values.status}
               onChange={handleChange}
               onBlur={handleBlur}
               optionObj={{ NEW: 'nueva', 'IN PROGRESS': 'en proceso', FINISHED: 'terminada' }}
@@ -78,7 +85,7 @@ export const TaskForm = () => {
             <InputSelect
               name='importance'
               placeholderText='Seleccionar una prioridad'
-              value={values.continent}
+              value={values.importance}
               onChange={handleChange}
               onBlur={handleBlur}
               optionObj={{ LOW: 'baja', MEDIUM: 'media', HIGH: 'alta' }}
@@ -89,7 +96,7 @@ export const TaskForm = () => {
           <Textarea
             name='description'
             placeholder='Descripción'
-            value={values.continent}
+            value={values.description}
             onChange={handleChange}
             onBlur={handleBlur}
             error={touched.description && errors.description}
@@ -103,26 +110,3 @@ export const TaskForm = () => {
     </>
   );
 };
-
-const FormContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  margin-bottom: 10px;
-  form {
-    width: 100%;
-    padding-right: 15px;
-
-    div {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-      flex-direction: column;
-      justify-content: space-between;
-      margin-bottom: 0.6rem;
-      @media (min-width: 1300px) {
-        flex-direction: row;
-      }
-    }
-  }
-`;
