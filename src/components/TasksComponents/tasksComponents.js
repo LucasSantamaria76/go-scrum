@@ -119,6 +119,16 @@ export const CardList = styled.div`
   box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 6px;
   padding: 10px;
   overflow-y: auto;
+  &::-webkit-scrollbar {
+    height: 4px;
+    width: 4px;
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #df0303;
+    border-radius: 8px;
+  }
 `;
 
 export const TasksContainerPhone = styled.div`
