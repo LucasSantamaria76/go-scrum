@@ -9,7 +9,7 @@ import { store } from './redux/store';
 const root = createRoot(document.getElementById('root'));
 root.render(
   <StrictMode>
-    <HashRouter basename='go-scrum/'>
+    <HashRouter>
       <Provider store={store}>
         <App />
       </Provider>
