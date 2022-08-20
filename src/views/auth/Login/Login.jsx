@@ -33,21 +33,6 @@ export const Login = () => {
         navigate('/', { replace: true });
       })
       .catch(() => invalidCredentials());
-    /*     fetch(`${API_ENDPOINT}auth/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        userName,
-        password,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.status_code === 200) {
-        } else invalidCredentials();
-      }); */
   };
 
   const formik = useFormik({ initialValues, validationSchema, onSubmit });

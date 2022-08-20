@@ -28,7 +28,7 @@ export const TaskCard = ({
       <CardContainer>
         <BtnClose onClick={() => deleteCard(_id)}>x</BtnClose>
         <h3>{title}</h3>
-        <h6>{datetime}</h6>
+        <h5>Tarea creada el {datetime}</h5>
         <h5>{userName}</h5>
         <div>
           <BtnData

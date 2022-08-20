@@ -60,10 +60,10 @@ export const UserIcon = styled(FiUserX)`
 // Header Components
 
 export const TasksContainer = styled.div`
-  padding: 0px 30px 5px;
+  padding: 0px 20px 5px 20px;
   min-width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   @media (min-width: 900px) {
     flex-direction: row;
   }
@@ -74,8 +74,9 @@ export const WrapperList = styled.div`
   margin-top: 5px;
   min-width: 60%;
   height: calc(100vh - 80px);
+  border: 1px solid #ccc;
   border-radius: 8px;
-  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 5px;
   flex: 2;
 
   h2 {
@@ -85,6 +86,7 @@ export const WrapperList = styled.div`
 
   @media (min-width: 900px) {
     margin-top: 0;
+    overflow-y: scroll;
   }
   @media (min-width: 1300px) {
     flex: 1;
@@ -156,7 +158,7 @@ export const CardContainer = styled.div`
   h5,
   h6 {
     color: #424242;
-    font-size: 0.6rem;
+    font-size: 0.8rem;
     margin: 0 0 0.1rem;
   }
   p {
@@ -195,5 +197,51 @@ export const BtnData = styled.button`
   }
   &:active {
     opacity: 1;
+  }
+`;
+
+export const NewTaskContainer = styled.div`
+  width: 100%;
+  height: 200px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 10px;
+  .team {
+    font-size: 0.8rem;
+    margin-top: 0.8rem;
+  }
+  .team p:nth-child(1) {
+    font-weight: bold;
+    color: red;
+  }
+  .team p:nth-child(3) {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #00b300;
+    text-transform: capitalize;
+    margin-top: 1rem;
+  }
+  @media (min-width: 900px) {
+    margin: 0;
+  }
+`;
+
+export const ContainerGroup = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  @media (min-width: 900px) {
+    width: 30%;
+    margin: 0 25px;
+    flex-direction: column;
+    gap: 20px;
   }
 `;

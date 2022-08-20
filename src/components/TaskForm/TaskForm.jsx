@@ -56,9 +56,7 @@ export const TaskForm = () => {
   return (
     <>
       <FormContainer>
-        <h2>
-          Crear Tarea <span>{`( ID del equipo: ${localStorage.getItem('teamID')})`}</span>
-        </h2>
+        <h2>Crear Tarea</h2>
         <h4>Crea tus tareas</h4>
         <form onSubmit={handleSubmit}>
           <div>

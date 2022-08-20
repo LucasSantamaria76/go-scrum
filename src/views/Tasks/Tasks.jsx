@@ -5,12 +5,16 @@ import debounce from 'lodash.debounce';
 import { Input, InputSelect, TaskForm } from './../../components';
 import { FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import {
+  ContainerGroup,
   Filters,
   TasksContainer,
   WrapperList,
 } from '../../components/TasksComponents/tasksComponents';
 import ListTasks from './../../components/TasksComponents/ListTasks';
 import Header from '../../components/TasksComponents/Header';
+import PieChart from '../../components/CommonComponents/PieChart';
+import NewTask from '../../components/TasksComponents/NewTask';
+import styled from '@emotion/styled';
 
 export const Tasks = () => {
   const [tasksfromWho, setTasksfromWho] = useState('ALL');
@@ -25,7 +29,7 @@ export const Tasks = () => {
     <>
       <Header />
       <TasksContainer>
-        <TaskForm />
+        {/* <TaskForm /> */}
         <WrapperList>
           <h2>Mis Tareas</h2>
           <Filters>
@@ -59,6 +63,10 @@ export const Tasks = () => {
             searchImportance={searchImportance}
           />
         </WrapperList>
+        <ContainerGroup>
+          <NewTask />
+          <PieChart />
+        </ContainerGroup>
       </TasksContainer>
     </>
   );

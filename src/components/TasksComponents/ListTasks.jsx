@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Skeleton from 'react-loading-skeleton';
@@ -16,7 +17,7 @@ const ListTasks = ({ search, searchImportance, tasksfromWho }) => {
 
   useEffect(() => {
     dispatch(getTasks(tasksfromWho === 'ME' ? 'me' : ''));
-  }, [tasksfromWho, dispatch]);
+  }, [tasksfromWho]);
 
   useEffect(() => {
     if (tasks?.length) {
@@ -64,11 +65,11 @@ const ListTasks = ({ search, searchImportance, tasksfromWho }) => {
     ));
 
   const handleDelete = (id) => {
-    dispatch(deleteTask(id));
+    dispatch(deleteTask(id, tasksfromWho));
   };
 
   const handleEditCardStatus = (data) => {
-    dispatch(editTaskStatus(data));
+    dispatch(editTaskStatus(data, tasksfromWho));
   };
 
   if (error) return <div>Hay un error</div>;

@@ -12,6 +12,7 @@ export const getTasks = (path) => async (dispatch) => {
       },
     });
     const data = await res.json();
+
     if (data.status_code === 200) {
       dispatch({ type: types.TASKS_SUCCESS, payload: data.result });
     } else dispatch({ type: types.TASKS_FAILURE, payload: data.message });
@@ -20,7 +21,7 @@ export const getTasks = (path) => async (dispatch) => {
   }
 };
 
-export const deleteTask = (id) => async (dispatch) => {
+export const deleteTask = (id, tasksfromWho) => async (dispatch) => {
   try {
     await fetch(`${API_ENDPOINT}task/${id}`, {
       method: 'DELETE',
@@ -29,13 +30,13 @@ export const deleteTask = (id) => async (dispatch) => {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
       },
     });
-    dispatch(getTasks(''));
+    dispatch(getTasks(tasksfromWho === 'ME' ? 'me' : ''));
   } catch (error) {
     dispatch({ type: types.TASKS_FAILURE, payload: error });
   }
 };
 
-export const editTaskStatus = (data) => async (dispatch) => {
+export const editTaskStatus = (data, tasksfromWho) => async (dispatch) => {
   const statusArray = ['NEW', 'IN PROGRESS', 'FINISHED'];
 
   const newStatusIndex =
@@ -57,7 +58,7 @@ export const editTaskStatus = (data) => async (dispatch) => {
         },
       }),
     });
-    dispatch(getTasks(''));
+    dispatch(getTasks(tasksfromWho === 'ME' ? 'me' : ''));
   } catch (error) {
     dispatch({ type: types.TASKS_FAILURE, payload: error });
   }
