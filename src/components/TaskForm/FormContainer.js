@@ -5,28 +5,24 @@ export const FormContainer = styled.div`
   flex-direction: column;
   flex: 1;
   margin-bottom: 10px;
-  padding-right: 25px;
 
   div {
     display: flex;
     flex-direction: column;
   }
   form {
-    width: 100%;
+    width: 200px;
     display: flex;
     flex-wrap: wrap;
     gap: 0.8rem;
     flex-direction: column;
     justify-content: space-between;
     margin-bottom: 0.6rem;
-    /*     @media (min-width: 900px) {
-      padding-right: 25px;
-    } */
-    @media (min-width: 1300px) {
-      div {
-        flex-direction: row;
-        gap: 0.8rem;
-      }
+    @media (min-width: 400px) {
+      width: 300px;
+    }
+    @media (min-width: 640px) {
+      width: 500px;
     }
   }
 `;

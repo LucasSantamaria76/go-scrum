@@ -13,7 +13,11 @@ export const Donate = () => {
             Donar
           </a>
         </div>
-        <Button width='280px' height='30px' onClick={() => navigate('/', { replace: true })}>
+        <Button
+          primary
+          width='280px'
+          height='30px'
+          onClick={() => navigate('/', { replace: true })}>
           Volver
         </Button>
       </Section>

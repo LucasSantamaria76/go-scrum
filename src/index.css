@@ -3,6 +3,13 @@
   font-family: 'Nunito', sans-serif;
 }
 
+:root {
+  --bgPrimary: linear-gradient(rgb(245, 140, 140), rgb(235, 50, 15));
+  --hoverPrimary: linear-gradient(rgb(235, 50, 15), rgb(245, 140, 140));
+  --bgSecondary: linear-gradient(rgb(166, 184, 187), rgb(5, 117, 134));
+  --hoverSecondary: linear-gradient(rgb(5, 117, 134), rgb(166, 184, 187));
+}
+
 body {
   margin: 0;
   padding: 0;

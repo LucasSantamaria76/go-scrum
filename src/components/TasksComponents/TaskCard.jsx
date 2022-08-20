@@ -59,13 +59,23 @@ export const TaskCard = ({
         {showMore && (
           <>
             <p>{description}</p>
-            <Button type='button' onClick={() => setShowMore(false)} width='60px' height='18px'>
+            <Button
+              primary
+              type='button'
+              onClick={() => setShowMore(false)}
+              width='65px'
+              height='20px'>
               Ver menos
             </Button>
           </>
         )}
         {!showMore && limitString(description).addButton && (
-          <Button type='button' onClick={() => setShowMore(true)} width='50px' height='18px'>
+          <Button
+            primary
+            type='button'
+            onClick={() => setShowMore(true)}
+            width='60px'
+            height='20px'>
             Ver más
           </Button>
         )}

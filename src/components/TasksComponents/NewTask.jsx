@@ -1,10 +1,10 @@
 import { NewTaskContainer } from './tasksComponents';
 import { Button } from './../CommonComponents/Button';
 
-const NewTask = () => {
+const NewTask = ({ handleClickOpen }) => {
   return (
     <NewTaskContainer>
-      <Button width='75%' height='60px'>
+      <Button primary width='75%' height='60px' onClick={handleClickOpen}>
         Nueva tarea
       </Button>
 

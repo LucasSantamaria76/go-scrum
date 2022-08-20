@@ -27,6 +27,7 @@ export const Login = () => {
     const { userName, password } = values;
     fetchLogin(userName, password)
       .then((res) => {
+        console.log(res);
         localStorage.setItem('token', res?.token);
         localStorage.setItem('userName', userName);
         localStorage.setItem('teamID', res?.teamID);
@@ -63,7 +64,9 @@ export const Login = () => {
             error={touched.password && errors.password}
             helperText={errors.password}
           />
-          <Button type='submit'>Iniciar sesión</Button>
+          <Button type='submit' primary>
+            Iniciar sesión
+          </Button>
           <p>
             ¿No tienes cuenta? <LinkStyled to='/register'>Registrate aqui...</LinkStyled>
           </p>

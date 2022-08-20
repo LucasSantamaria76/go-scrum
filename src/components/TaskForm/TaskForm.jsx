@@ -1,14 +1,15 @@
 import { useFormik } from 'formik';
+import toast, { Toaster } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 
-import { Button, Input, InputSelect, Textarea, Toast } from '../../components';
+import { Button, Input, InputSelect, Textarea } from '../../components';
 import { types } from '../../redux/types';
 import { FormContainer } from './FormContainer';
 
 const { REACT_APP_API_ENDPOINT: API_ENDPOINT } = process.env;
 
-export const TaskForm = () => {
+export const TaskForm = ({ handleClose }) => {
   const dispatch = useDispatch();
 
   const initialValues = {
@@ -16,6 +17,13 @@ export const TaskForm = () => {
     status: '',
     description: '',
     importance: '',
+  };
+
+  const btnsStyles = {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    gap: '10px',
   };
 
   const onSubmit = () => {
@@ -29,10 +37,16 @@ export const TaskForm = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        //console.log(data);
-        Toast.fire({
-          icon: 'success',
-          title: `Tu tarea se creo correctamente`,
+        toast.success('Tarea creada con éxito', {
+          position: 'top-center',
+          autoClose: 3000,
+          style: {
+            padding: '20px',
+            borderRadius: '10px',
+            background: '#00000057',
+            color: '#fff',
+            fontSize: '1.5rem',
+          },
         });
         dispatch({ type: types.NEW_TASK, payload: data?.result?.task });
         resetForm();
@@ -43,9 +57,9 @@ export const TaskForm = () => {
 
   const validationSchema = () =>
     Yup.object().shape({
-      title: Yup.string().min(6, 'La cantidad mínima de caracteres es 6').required(required),
+      title: Yup.string().min(4, 'La cantidad mínima de caracteres es 4').required(required),
       status: Yup.string().required(required),
-      description: Yup.string().required(required),
+      description: Yup.string(),
       importance: Yup.string().required(required),
     });
 
@@ -100,11 +114,17 @@ export const TaskForm = () => {
             error={touched.description && errors.description}
             helperText={errors.description}
           />
-          <Button type='submit' width='100px'>
-            Crear
-          </Button>
+          <div style={btnsStyles}>
+            <Button type='submit' primary width='100px'>
+              Crear
+            </Button>
+            <Button type='button' width='100px' onClick={() => handleClose()}>
+              Salir
+            </Button>
+          </div>
         </form>
       </FormContainer>
+      <Toaster />
     </>
   );
 };

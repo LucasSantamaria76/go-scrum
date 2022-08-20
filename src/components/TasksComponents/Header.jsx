@@ -19,7 +19,11 @@ const Header = () => {
       <Navbar>
         <Logo src={process.env.PUBLIC_URL + '/img/goscrum.png'} alt='logo' />
         <div>
-          <Button width='60px' height='30px' onClick={() => navigate('/donate', { replace: true })}>
+          <Button
+            primary
+            width='60px'
+            height='30px'
+            onClick={() => navigate('/donate', { replace: true })}>
             Donar
           </Button>
           <p>{`Cantidad de tareas creadas: ${tasks?.length}`}</p>

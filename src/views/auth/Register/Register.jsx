@@ -41,7 +41,7 @@ export const Register = () => {
   const validationSchema = () =>
     Yup.object().shape({
       userName: Yup.string().min(4, 'La cantidad mínima de caracteres es 4').required(required),
-      password: Yup.string().required(required),
+      password: Yup.string().min(6, 'La cantidad mínima de caracteres es 6').required(required),
       email: Yup.string().email('Por favor introduzca un email válido').required(required),
       role: Yup.string().required(required),
       continent: Yup.string().required(required),
@@ -166,6 +166,7 @@ export const Register = () => {
               onBlur={handleBlur}
               error={errors.teamID && touched.teamID}
               helperText={errors.teamID}
+              handleDoubleClick={() => setFieldValue('teamID', localStorage.getItem('teamID'))}
             />
           )}
           <InputSelect
@@ -203,7 +204,9 @@ export const Register = () => {
               helperText={errors.region}
             />
           )}
-          <Button type='submit'>Registrarse</Button>
+          <Button type='submit' primary>
+            Registrarse
+          </Button>
           <p>
             ¿Ya tienes cuenta? <LinkStyled to='/login'>Iniciar sesión aqui...</LinkStyled>
           </p>
