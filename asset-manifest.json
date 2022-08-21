@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/go-scrum/static/css/main.cac0172d.css",
-    "main.js": "/go-scrum/static/js/main.34f73ad9.js",
+    "main.js": "/go-scrum/static/js/main.110da4f8.js",
     "static/js/243.e9b29586.chunk.js": "/go-scrum/static/js/243.e9b29586.chunk.js",
     "index.html": "/go-scrum/index.html",
     "main.cac0172d.css.map": "/go-scrum/static/css/main.cac0172d.css.map",
-    "main.34f73ad9.js.map": "/go-scrum/static/js/main.34f73ad9.js.map",
+    "main.110da4f8.js.map": "/go-scrum/static/js/main.110da4f8.js.map",
     "243.e9b29586.chunk.js.map": "/go-scrum/static/js/243.e9b29586.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.cac0172d.css",
-    "static/js/main.34f73ad9.js"
+    "static/js/main.110da4f8.js"
   ]
 }
