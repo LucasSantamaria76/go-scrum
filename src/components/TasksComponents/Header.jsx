@@ -6,7 +6,7 @@ import { Logo, Navbar, User, UserIcon } from './tasksComponents';
 
 const Header = () => {
   const navigate = useNavigate();
-  const { tasks } = useSelector((state) => state.tasksReducer);
+  const { countTasksActivas } = useSelector((state) => state.tasksReducer);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -19,16 +19,12 @@ const Header = () => {
       <Navbar>
         <Logo src={process.env.PUBLIC_URL + '/img/goscrum.png'} alt='logo' />
         <div>
-          <Button
-            primary
-            width='60px'
-            height='30px'
-            onClick={() => navigate('/donate', { replace: true })}>
+          <Button primary width='60px' height='30px' onClick={() => navigate('/donate', { replace: true })}>
             Donar
           </Button>
-          <p>{`Cantidad de tareas creadas: ${tasks?.length}`}</p>
+          <p>{`Cantidad de tareas: ${countTasksActivas}`}</p>
           <User>
-            <p>{localStorage.getItem('userName')}</p>
+            <p id='userName'>{localStorage.getItem('userName')}</p>
             <UserIcon onClick={handleLogout} />
           </User>
         </div>

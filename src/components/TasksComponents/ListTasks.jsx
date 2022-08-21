@@ -1,111 +1,94 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Skeleton from 'react-loading-skeleton';
 
 import { useResize } from '../../hooks/useResize';
-import { TaskCard } from './TaskCard';
 import { CardList, ListGroup, TasksContainerPhone } from './tasksComponents';
-import { deleteTask, editTaskStatus, getTasks } from '../../redux/actions/tasksActions';
+import RenderList from './RenderList';
+import { types } from '../../redux/types';
 
 const ListTasks = ({ search, searchImportance, tasksfromWho }) => {
-  const [list, setList] = useState(null);
-  const [renderList, setRenderList] = useState(null);
-  const { isPhone } = useResize();
-  const dispatch = useDispatch();
   const { tasks, error, loading } = useSelector((state) => state.tasksReducer);
 
-  useEffect(() => {
-    dispatch(getTasks(tasksfromWho === 'ME' ? 'me' : ''));
-  }, [tasksfromWho]);
+  const [renderList, setRenderList] = useState([]);
+  const [list, setList] = useState([]);
+  const { isPhone } = useResize();
+  const dispatch = useDispatch();
+
+  const userName = localStorage.getItem('userName');
+
+  const filtrar = () => {
+    switch (true) {
+      case tasksfromWho === 'ME' && !!search && ['LOW', 'MEDIUM', 'HIGH'].includes(searchImportance):
+        setRenderList(
+          list?.filter(
+            (task) => task?.user.userName === userName && task.importance === searchImportance && task.title.toLowerCase().startsWith(search)
+          )
+        );
+        break;
+      case tasksfromWho === 'ME' && !!search:
+        setRenderList(list?.filter((task) => task?.user.userName === userName && task.title.toLowerCase().startsWith(search)));
+        break;
+      case tasksfromWho === 'ME' && ['LOW', 'MEDIUM', 'HIGH'].includes(searchImportance):
+        setRenderList(list?.filter((task) => task?.user.userName === userName && task.importance === searchImportance));
+        break;
+      case tasksfromWho === 'ME':
+        setRenderList(list?.filter((task) => task?.user.userName === userName));
+        break;
+
+      case tasksfromWho === 'ALL' && !!search && ['LOW', 'MEDIUM', 'HIGH'].includes(searchImportance):
+        setRenderList(list?.filter((task) => task.importance === searchImportance && task.title.toLowerCase().startsWith(search)));
+        break;
+      case tasksfromWho === 'ALL' && !!search:
+        setRenderList(list?.filter((task) => task.title.toLowerCase().startsWith(search)));
+        break;
+      case tasksfromWho === 'ALL' && ['LOW', 'MEDIUM', 'HIGH'].includes(searchImportance):
+        setRenderList(list?.filter((task) => task.importance === searchImportance));
+        break;
+
+      default:
+        setRenderList(list);
+        break;
+    }
+  };
 
   useEffect(() => {
-    if (tasks?.length) {
-      setList(tasks);
-      setRenderList(tasks);
-    } else {
-      setList(null);
-      setRenderList(null);
-    }
+    setList(tasks);
+    setRenderList(tasks);
   }, [tasks]);
 
   useEffect(() => {
-    if (searchImportance === 'ALL') {
-      setRenderList(list);
-    } else setRenderList(list?.filter((data) => data.importance === searchImportance));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchImportance]);
+    filtrar();
+  }, [tasksfromWho, searchImportance, search, list]);
 
   useEffect(() => {
-    if (search) setRenderList(list.filter((data) => data.title.toLowerCase().startsWith(search)));
-    else setRenderList(list);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search]);
+    dispatch({ type: types.COUNT_TASKS_ACTIVAS, payload: renderList?.length });
+  }, [renderList?.length]);
 
-  const renderColumnCards = (text) =>
-    renderList
-      ?.filter((data) => data.status === text)
-      .map((data) => (
-        <TaskCard
-          key={data._id}
-          data={data}
-          deleteCard={handleDelete}
-          editCardStatus={handleEditCardStatus}
-        />
-      ));
+  if (error) return <h2>Hay un error</h2>;
 
-  const renderAllCards = () =>
-    renderList?.map((data) => (
-      <TaskCard
-        key={data._id}
-        data={data}
-        deleteCard={handleDelete}
-        editCardStatus={handleEditCardStatus}
-      />
-    ));
+  if (loading) return <Skeleton count={10} />;
 
-  const handleDelete = (id) => {
-    dispatch(deleteTask(id, tasksfromWho));
-  };
+  const hasTasks = renderList?.length;
 
-  const handleEditCardStatus = (data) => {
-    dispatch(editTaskStatus(data, tasksfromWho));
-  };
-
-  if (error) return <div>Hay un error</div>;
+  if (!hasTasks) return <h2>No hay tareas</h2>;
 
   return (
     <>
       {isPhone ? (
-        !renderList?.length ? (
-          <div>No hay tareas creadas</div>
-        ) : loading ? (
-          <Skeleton count={6} />
-        ) : (
-          <TasksContainerPhone>{renderAllCards()}</TasksContainerPhone>
-        )
+        <TasksContainerPhone>{/* <RenderList renderList={renderList} /> */}</TasksContainerPhone>
       ) : (
         <ListGroup>
-          {!renderList?.length ? (
-            <div>No hay tareas creadas</div>
-          ) : loading ? (
-            <Skeleton count={6} />
-          ) : (
-            <>
-              <CardList>
-                <h3>Nueva</h3>
-                {renderColumnCards('NEW')}
-              </CardList>
-              <CardList>
-                <h3>En progreso</h3>
-                {renderColumnCards('IN PROGRESS')}
-              </CardList>
-              <CardList>
-                <h3>Terminadas</h3>
-                {renderColumnCards('FINISHED')}
-              </CardList>
-            </>
-          )}
+          <CardList>
+            <RenderList column='NEW' renderList={renderList} />
+          </CardList>
+          <CardList>
+            <RenderList column='IN PROGRESS' renderList={renderList} />
+          </CardList>
+          <CardList>
+            <RenderList column='FINISHED' renderList={renderList} />
+          </CardList>
         </ListGroup>
       )}
     </>

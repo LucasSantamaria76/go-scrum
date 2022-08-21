@@ -60,7 +60,7 @@ export const InputStyled = styled.input`
   background-color: #fff;
   &:focus {
     outline: none;
-    border-color: blue;
+    border-color: rgb(5, 117, 134);
   }
 `;
 
@@ -79,7 +79,17 @@ export const InputSelectStyle = styled.select`
   background-color: #fff;
   &:focus {
     outline: none;
-    border-color: blue;
+    border-color: rgb(5, 117, 134);
+  }
+
+  option {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    border-radius: 18px;
+    font-size: 1.2rem;
+    border-color: rgb(5, 117, 134);
   }
 `;
 

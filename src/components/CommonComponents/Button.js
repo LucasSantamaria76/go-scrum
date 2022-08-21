@@ -5,7 +5,7 @@ export const Button = styled.button`
   height: ${({ height }) => height ?? '35px'};
   font-size: ${({ height }) => `calc(${height} / 2)`};
   font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
-  border: 1px solid /* rgba(241, 88, 32, 1) */;
+  border: 1px solid #000;
   color: rgba(255, 255, 255, 1);
   border-radius: 8px;
   box-shadow: 2px 2px 8px -1px rgba(0, 0, 0, 1);

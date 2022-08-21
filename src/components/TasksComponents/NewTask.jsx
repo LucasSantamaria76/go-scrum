@@ -9,9 +9,9 @@ const NewTask = ({ handleClickOpen }) => {
       </Button>
 
       <div className='team'>
-        <p>Id del Equipo</p>
+        <p id='teamID'>Id del Equipo</p>
         <p>{localStorage.getItem('teamID')}</p>
-        <p>{`Usuario: ${localStorage.getItem('userName')}`}</p>
+        <p id='user'>{`Usuario: ${localStorage.getItem('userName')}`}</p>
       </div>
     </NewTaskContainer>
   );

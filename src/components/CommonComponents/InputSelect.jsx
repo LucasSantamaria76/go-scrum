@@ -1,14 +1,6 @@
 import { InputSelectStyle, Label, Text } from './commonStyles';
 
-const InputSelect = ({
-  error,
-  helperText,
-  label,
-  option,
-  optionObj,
-  placeholderText,
-  ...props
-}) => {
+const InputSelect = ({ error, helperText, label, option, optionObj, placeholderText, ...props }) => {
   return (
     <>
       <Label>

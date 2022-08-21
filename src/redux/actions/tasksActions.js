@@ -21,7 +21,26 @@ export const getTasks = (path) => async (dispatch) => {
   }
 };
 
-export const deleteTask = (id, tasksfromWho) => async (dispatch) => {
+/* export const getTasksByStatus = (status, path) => async (dispatch) => {
+  dispatch({ type: types.TASKS_REQUEST });
+  try {
+    const res = await fetch(`${API_ENDPOINT}task/${path}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      },
+    });
+    const data = await res.json();
+    if (data.status_code === 200) {
+      const tasksByStatus = data.result.filter((task) => task.status === status);
+      dispatch({ type: types.TASKS_SUCCESS_BY_STATUS, payload: { tasks: tasksByStatus, status } });
+    } else dispatch({ type: types.TASKS_FAILURE, payload: data.message });
+  } catch (error) {
+    dispatch({ type: types.TASKS_FAILURE, payload: error });
+  }
+}; */
+
+export const deleteTask = (id) => async (dispatch) => {
   try {
     await fetch(`${API_ENDPOINT}task/${id}`, {
       method: 'DELETE',
@@ -30,17 +49,16 @@ export const deleteTask = (id, tasksfromWho) => async (dispatch) => {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
       },
     });
-    dispatch(getTasks(tasksfromWho === 'ME' ? 'me' : ''));
+    dispatch({ type: types.DELETE_TASK, payload: id });
   } catch (error) {
     dispatch({ type: types.TASKS_FAILURE, payload: error });
   }
 };
 
-export const editTaskStatus = (data, tasksfromWho) => async (dispatch) => {
+export const editTaskStatus = (data) => async (dispatch) => {
   const statusArray = ['NEW', 'IN PROGRESS', 'FINISHED'];
 
-  const newStatusIndex =
-    statusArray.indexOf(data.status) > 1 ? 0 : statusArray.indexOf(data.status) + 1;
+  const newStatusIndex = statusArray.indexOf(data.status) > 1 ? 0 : statusArray.indexOf(data.status) + 1;
 
   try {
     await fetch(`${API_ENDPOINT}task/${data._id}`, {
@@ -58,7 +76,7 @@ export const editTaskStatus = (data, tasksfromWho) => async (dispatch) => {
         },
       }),
     });
-    dispatch(getTasks(tasksfromWho === 'ME' ? 'me' : ''));
+    dispatch({ type: types.SET_STATUS, payload: { id: data._id, status: statusArray[newStatusIndex] } });
   } catch (error) {
     dispatch({ type: types.TASKS_FAILURE, payload: error });
   }

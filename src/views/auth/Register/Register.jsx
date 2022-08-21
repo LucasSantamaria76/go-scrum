@@ -151,6 +151,7 @@ export const Register = () => {
                 onChange={() => formik.setFieldValue('switch', !formik.values.switch)}
                 name='switch'
                 color='error'
+                onClick={() => setFieldValue('teamID', '')}
               />
             }
             label='Pertenecés a un equipo ya creado'

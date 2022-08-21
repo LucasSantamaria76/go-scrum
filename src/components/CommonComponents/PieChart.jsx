@@ -21,24 +21,30 @@ const PieChartContainer = styled.div`
   }
 `;
 
-export default function PieChart() {
+export default function PieChart({ tasksfromWho }) {
   const { tasks } = useSelector((state) => state.tasksReducer);
 
-  const percentageByStatus = tasks.reduce((acc, task) => {
+  let tasksFiltered;
+
+  tasksfromWho === 'ME'
+    ? (tasksFiltered = tasks.filter((task) => task?.user.userName === localStorage.getItem('userName')))
+    : (tasksFiltered = tasks);
+
+  const percentageByStatus = tasksFiltered.reduce((acc, task) => {
     !acc[task.status] && (acc[task.status] = 0);
     acc[task.status] += 1;
     return acc;
   }, {});
 
   const data = {
-    labels: ['Nuevas', 'En progreso', 'Terminadas'],
+    labels: ['Nuevas  %', 'En progreso  %', 'Terminadas  %'],
     datasets: [
       {
         label: '# of Votes',
         data: [
-          percentageByStatus.NEW || 0,
-          percentageByStatus['IN PROGRESS'] || 0,
-          percentageByStatus.FINISHED || 0,
+          ((percentageByStatus.NEW * 100) / tasksFiltered.length).toFixed(2) || 0,
+          ((percentageByStatus['IN PROGRESS'] * 100) / tasksFiltered.length).toFixed(2) || 0,
+          ((percentageByStatus.FINISHED * 100) / tasksFiltered.length).toFixed(2) || 0,
         ],
         backgroundColor: ['#ff638433', '#ff9f4033', '#54f09533'],
         borderColor: ['#ff6384', '#ff9f40', '#54f095'],

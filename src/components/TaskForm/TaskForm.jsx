@@ -41,8 +41,8 @@ export const TaskForm = ({ handleClose }) => {
           position: 'top-center',
           autoClose: 3000,
           style: {
-            padding: '20px',
-            borderRadius: '10px',
+            padding: '10px',
+            borderRadius: '8px',
             background: '#00000057',
             color: '#fff',
             fontSize: '1.5rem',
@@ -59,7 +59,7 @@ export const TaskForm = ({ handleClose }) => {
     Yup.object().shape({
       title: Yup.string().min(4, 'La cantidad mínima de caracteres es 4').required(required),
       status: Yup.string().required(required),
-      description: Yup.string(),
+      description: Yup.string().required(required),
       importance: Yup.string().required(required),
     });
 

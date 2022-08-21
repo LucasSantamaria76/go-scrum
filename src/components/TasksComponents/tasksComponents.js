@@ -17,7 +17,7 @@ export const Navbar = styled.nav`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 15px;
+    gap: 30px;
     p {
       font-size: 0.9rem;
     }
@@ -37,24 +37,24 @@ export const Logo = styled.img`
 export const User = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
 
-  p {
-    margin-right: 10px;
-    font-size: 1.2rem;
-    color: #000;
+  #userName {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: rgb(5, 117, 134);
+    text-transform: capitalize;
   }
 `;
 
 export const UserIcon = styled(FiUserX)`
   width: 35px;
   height: 35px;
-  padding: 4px;
+  //  padding: 4px;
   color: #df0303;
   &:hover {
     cursor: pointer;
-    background-color: #b1afaf;
-    border-radius: 50%;
+    color: #b1afaf;
   }
 `;
 // Header Components
@@ -78,6 +78,7 @@ export const WrapperList = styled.div`
   border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 5px;
   flex: 2;
+  overflow: hidden;
 
   h2 {
     margin: 0;
@@ -86,7 +87,7 @@ export const WrapperList = styled.div`
 
   @media (min-width: 900px) {
     margin-top: 0;
-    overflow-y: scroll;
+    //overflow-y: scroll;
   }
   @media (min-width: 1300px) {
     flex: 1;
@@ -217,14 +218,14 @@ export const NewTaskContainer = styled.div`
     font-size: 0.8rem;
     margin-top: 0.8rem;
   }
-  .team p:nth-child(1) {
+  .team #teamID {
     font-weight: bold;
     color: red;
   }
-  .team p:nth-child(3) {
+  .team #user {
     font-weight: bold;
     font-size: 1rem;
-    color: #00b300;
+    color: rgb(5, 117, 134);
     text-transform: capitalize;
     margin-top: 1rem;
   }
