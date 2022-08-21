@@ -27,7 +27,7 @@ export const Login = () => {
     const { userName, password } = values;
     fetchLogin(userName, password)
       .then((res) => {
-        console.log(res);
+        console.log(res?.teamID);
         localStorage.setItem('token', res?.token);
         localStorage.setItem('userName', userName);
         localStorage.setItem('teamID', res?.teamID);

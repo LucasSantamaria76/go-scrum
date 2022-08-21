@@ -77,7 +77,7 @@ const ListTasks = ({ search, searchImportance, tasksfromWho }) => {
   return (
     <>
       {isPhone ? (
-        <TasksContainerPhone>{/* <RenderList renderList={renderList} /> */}</TasksContainerPhone>
+        <TasksContainerPhone>{<RenderList column='ALL' renderList={renderList} />}</TasksContainerPhone>
       ) : (
         <ListGroup>
           <CardList>

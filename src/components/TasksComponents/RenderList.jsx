@@ -41,11 +41,11 @@ const RenderList = ({ column, renderList }) => {
   };
   return (
     <>
-      {renderList
-        ?.filter((data) => data.status === column)
-        .map((data) => (
-          <TaskCard key={data._id} data={data} deleteCard={handleDelete} editCardStatus={handleEditCardStatus} />
-        ))}
+      {column !== 'ALL'
+        ? renderList
+            ?.filter((data) => data.status === column)
+            .map((data) => <TaskCard key={data._id} data={data} deleteCard={handleDelete} editCardStatus={handleEditCardStatus} />)
+        : renderList?.map((data) => <TaskCard key={data._id} data={data} deleteCard={handleDelete} editCardStatus={handleEditCardStatus} />)}
       <Toaster />
     </>
   );
