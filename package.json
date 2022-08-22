@@ -57,6 +57,7 @@
     ]
   },
   "devDependencies": {
-    "@redux-devtools/extension": "^3.2.2"
+    "@redux-devtools/extension": "^3.2.2",
+    "jest": "^28.1.3"
   }
 }
