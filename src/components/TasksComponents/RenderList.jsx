@@ -39,6 +39,7 @@ const RenderList = ({ column, renderList }) => {
       });
     }, 1000);
   };
+
   return (
     <>
       {column !== 'ALL'

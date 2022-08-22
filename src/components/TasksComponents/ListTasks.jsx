@@ -74,6 +74,12 @@ const ListTasks = ({ search, searchImportance, tasksfromWho }) => {
 
   if (!hasTasks) return <h2>No hay tareas</h2>;
 
+  const title = (column) => {
+    if (column === 'NEW') return 'Tareas nuevas';
+    if (column === 'IN PROGRESS') return 'Tareas en progreso';
+    if (column === 'FINISHED') return 'Tareas finalizadas';
+  };
+
   return (
     <>
       {isPhone ? (
@@ -81,12 +87,15 @@ const ListTasks = ({ search, searchImportance, tasksfromWho }) => {
       ) : (
         <ListGroup>
           <CardList>
+            <h2>{title('NEW')}</h2>
             <RenderList column='NEW' renderList={renderList} />
           </CardList>
           <CardList>
+            <h2>{title('IN PROGRESS')}</h2>
             <RenderList column='IN PROGRESS' renderList={renderList} />
           </CardList>
           <CardList>
+            <h2>{title('FINISHED')}</h2>
             <RenderList column='FINISHED' renderList={renderList} />
           </CardList>
         </ListGroup>
